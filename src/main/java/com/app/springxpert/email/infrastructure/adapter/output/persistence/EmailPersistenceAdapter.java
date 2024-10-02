@@ -6,14 +6,14 @@ import com.app.springxpert.email.infrastructure.adapter.input.dto.request.EmailR
 import com.app.springxpert.email.infrastructure.adapter.input.dto.request.EmailVerificationRequest;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
-import java.io.File;
-import java.nio.charset.StandardCharsets;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+import java.io.File;
+import java.nio.charset.StandardCharsets;
 
 @Service
 @RequiredArgsConstructor
@@ -55,7 +55,7 @@ public class EmailPersistenceAdapter implements IEmailPersistencePort {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
             mimeMessageHelper.setTo(emailVerificationRequest.to());
             mimeMessageHelper.setSubject(emailVerificationRequest.subject());
-            mimeMessageHelper.setText(emailVerificationRequest.verificationCode());
+            mimeMessageHelper.setText(emailVerificationRequest.verificationCode(), true);
 
             javaMailSender.send(mimeMessage);
         }
