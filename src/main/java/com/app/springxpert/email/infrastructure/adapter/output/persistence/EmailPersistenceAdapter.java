@@ -52,7 +52,7 @@ public class EmailPersistenceAdapter implements IEmailPersistencePort {
     public void sendVerificationEmail(EmailVerificationRequest emailVerificationRequest) {
         try {
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, StandardCharsets.UTF_8.name());
             mimeMessageHelper.setTo(emailVerificationRequest.to());
             mimeMessageHelper.setSubject(emailVerificationRequest.subject());
             mimeMessageHelper.setText(emailVerificationRequest.verificationCode(), true);

@@ -8,7 +8,6 @@ public record LoginRequest(
         @ExistsField(entityClass = UserEntity.class, fieldName = "username")
         @NotBlank String username,
 
-        @ExistsField(entityClass = UserEntity.class, fieldName = "password")
         @NotBlank String password
 ) {
 }
