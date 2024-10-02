@@ -9,8 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IVerificationRepository extends JpaRepository<VerificationEntity, Long> {
-    Optional<VerificationEntity> findVerificationEntityByCode(String code);
-
     @Query("SELECT v FROM VerificationEntity v WHERE v.code = ?1 AND v.user.email = ?2")
     Optional<VerificationEntity> findVerificationEntityByCodeAndEmail(@Param("code") String code, @Param("email") String email);
 }

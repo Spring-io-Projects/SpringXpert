@@ -70,17 +70,19 @@ public class VerificationServiceImpl implements IVerificationServicePort {
 
     @Override
     public void verifyCode(VerificationCodeRequest verificationCodeRequest) {
-        VerificationEntity verification = checkVerificationEntity(verificationCodeRequest.code(), verificationCodeRequest.email());
-        if (verification.getStatus().equals(CodeEnum.PENDING)) {
-            if (!codesMatch(verificationCodeRequest.code(), verification.getCode())) {
+        VerificationEntity verificationEntity = checkVerificationEntity(verificationCodeRequest.code(), verificationCodeRequest.email());
+        log.info("Verification entity: {}", verificationEntity.getStatus());
+        log.info("Verification entity: {}", verificationEntity.getCode());
+        if (verificationEntity.getStatus().equals(CodeEnum.PENDING)) {
+            if (!codesMatch(verificationCodeRequest.code(), verificationEntity.getCode())) {
                 throw new IllegalArgumentException("Incorrect verification code");
             }
             else {
-                verification.setStatus(CodeEnum.VERIFIED);
-                verificationPersistencePort.saveVerification(verification);
+                verificationEntity.setStatus(CodeEnum.VERIFIED);
+                verificationPersistencePort.saveVerification(verificationEntity);
             }
         }
-        else if (verification.getStatus().equals(CodeEnum.EXPIRED)) {
+        else if (verificationEntity.getStatus().equals(CodeEnum.EXPIRED)) {
             throw new IllegalArgumentException("Code has expired");
         }
         else {
@@ -91,9 +93,10 @@ public class VerificationServiceImpl implements IVerificationServicePort {
     @Override
     public void resetPassword(ResetPasswordRequest resetPasswordRequest) {
         VerificationEntity verificationEntity = checkVerificationEntity(resetPasswordRequest.code(), resetPasswordRequest.email());
-        log.info("Verification entity: {}", verificationEntity);
+
         if (verificationEntity.getStatus().equals(CodeEnum.VERIFIED)) {
             userServicePort.checkPassword(resetPasswordRequest.newPassword());
+
             if (!passwordsMatch(resetPasswordRequest.newPassword(), resetPasswordRequest.confirmPassword())) {
                 throw new IllegalArgumentException("Passwords do not match");
             }

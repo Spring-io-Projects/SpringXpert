@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = ExistsFieldValidator.class)
 public @interface ExistsField {
-    String message() default "This value must exist";
+    String message() default "This value is not yet registered, it does not exist in the database";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
     String fieldName();

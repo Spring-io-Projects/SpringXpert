@@ -32,8 +32,9 @@ public class VerificationEntity {
 
     @Column(nullable = false)
     private LocalDateTime expiredAt;
+
     @Enumerated(EnumType.STRING)
-    private CodeEnum status;
+    private CodeEnum status = CodeEnum.PENDING;
 
     @ManyToOne(targetEntity = UserEntity.class)
     private UserEntity user;

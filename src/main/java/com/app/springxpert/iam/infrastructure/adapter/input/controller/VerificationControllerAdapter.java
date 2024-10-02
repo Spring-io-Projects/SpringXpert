@@ -34,6 +34,7 @@ public class VerificationControllerAdapter {
     )
     public ResponseEntity<ResponseDTO> recoverPassword(@RequestBody @Valid RecoverPasswordRequest recoverPasswordRequest) {
         verificationServicePort.recoverPassword(recoverPasswordRequest);
+
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO("Recovery password sent successfully"));
     }
 
@@ -45,6 +46,7 @@ public class VerificationControllerAdapter {
     )
     public ResponseEntity<ResponseDTO> verifyCode(@RequestBody @Valid VerificationCodeRequest verificationCodeRequest) {
         verificationServicePort.verifyCode(verificationCodeRequest);
+
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO("Code verified successfully"));
     }
 
@@ -56,6 +58,7 @@ public class VerificationControllerAdapter {
     )
     public ResponseEntity<ResponseDTO> resetPassword(@RequestBody @Valid ResetPasswordRequest resetPasswordRequest) {
         verificationServicePort.resetPassword(resetPasswordRequest);
+
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO("Password reset successfully"));
     }
 }

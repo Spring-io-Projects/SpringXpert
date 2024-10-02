@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = UniqueFieldValidator.class)
 public @interface UniqueField {
-    String message() default "This value must be unique";
+    String message() default "This value already exists in the database, it must be unique";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
     String fieldName();

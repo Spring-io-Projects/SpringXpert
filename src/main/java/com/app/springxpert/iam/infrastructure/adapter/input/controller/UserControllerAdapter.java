@@ -32,6 +32,7 @@ public class UserControllerAdapter {
     )
     public ResponseEntity<ResponseDTO> changePassword(@RequestBody @Valid ChangePasswordRequest changePasswordRequest) {
         userService.changePassword(changePasswordRequest);
+
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO("Password changed successfully"));
     }
 }

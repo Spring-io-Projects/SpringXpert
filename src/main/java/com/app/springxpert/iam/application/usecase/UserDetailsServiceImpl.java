@@ -3,10 +3,8 @@ package com.app.springxpert.iam.application.usecase;
 import com.app.springxpert.iam.application.port.input.service.IUserDetailsServicePort;
 import com.app.springxpert.iam.application.port.output.persistence.IUserPersistencePort;
 import com.app.springxpert.iam.domain.model.aggregate.UserEntity;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,7 +17,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService, IUserDetailsServicePort {
 
@@ -69,6 +72,7 @@ public class UserDetailsServiceImpl implements UserDetailsService, IUserDetailsS
     @Override
     public Authentication authenticate(String username, String password) {
         UserDetails userDetails = loadUserByUsername(username);
+
         if (userDetails == null) {
             throw new BadCredentialsException("Invalid username or password");
         }

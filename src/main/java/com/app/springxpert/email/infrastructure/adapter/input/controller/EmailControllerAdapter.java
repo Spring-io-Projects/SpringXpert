@@ -44,7 +44,7 @@ public class EmailControllerAdapter {
     @PostMapping({"/send-message-file"})
     @Operation(
             summary = "Send a message with file",
-            description = "Send a message by email with file"
+            description = "Send a message by email with file - Try POSTMAN to send the file"
     )
     public ResponseEntity<ResponseDTO> receiveRequestEmailWithFile(@ModelAttribute @Valid EmailFileRequest emailFileRequest) {
         try {
@@ -59,8 +59,8 @@ public class EmailControllerAdapter {
 
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(new ResponseDTO("Send message with file successfully"));
         }
-        catch (Exception var5) {
-            throw new RuntimeException("Error sending email with file. " + var5.getMessage());
+        catch (Exception e) {
+            throw new RuntimeException("Error sending email with file. " + e.getMessage());
         }
     }
 }

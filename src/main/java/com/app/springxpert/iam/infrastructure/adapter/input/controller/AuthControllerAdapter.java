@@ -33,6 +33,7 @@ public class AuthControllerAdapter {
     )
     public ResponseEntity<AuthResponse> signUp(@RequestBody @Valid SignupRequest signupRequest) {
         AuthResponse authResponse = authServicePort.signUp(signupRequest);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(authResponse);
     }
 
@@ -44,6 +45,7 @@ public class AuthControllerAdapter {
     )
     public ResponseEntity<AuthResponse> logIn(@RequestBody @Valid LoginRequest loginRequest) {
         AuthResponse authResponse = authServicePort.logIn(loginRequest);
+
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(authResponse);
     }
 }

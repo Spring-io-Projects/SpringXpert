@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.List;
 import java.util.Set;
 
 @SpringBootApplication
@@ -50,6 +51,16 @@ public class SpringxpertApplication {
                     .permissionList(Set.of(createPermission, readPermission, updatePermission, deletePermission))
                     .build();
 
+            RoleEntity roleUser = RoleEntity.builder()
+                    .roleName(RoleEnum.USER)
+                    .permissionList(Set.of(createPermission, readPermission, updatePermission, deletePermission))
+                    .build();
+
+            RoleEntity roleInvited = RoleEntity.builder()
+                    .roleName(RoleEnum.INVITED)
+                    .permissionList(Set.of(createPermission, readPermission, updatePermission, deletePermission))
+                    .build();
+
             UserEntity userWilverAR = UserEntity.builder()
                     .email(email)
                     .username(username)
@@ -61,7 +72,29 @@ public class SpringxpertApplication {
                     .roles(Set.of(roleAdmin))
                     .build();
 
-            userRepository.save(userWilverAR);
+            UserEntity userWilverAR2 = UserEntity.builder()
+                    .email("wilver.ar.dev.two@gmail.com")
+                    .username("wilverar2")
+                    .password(passwordEncoder.encode("password"))
+                    .isEnabled(true)
+                    .accountNoExpired(true)
+                    .accountNoLocked(true)
+                    .credentialNoExpired(true)
+                    .roles(Set.of(roleUser))
+                    .build();
+
+            UserEntity userWilverAR3 = UserEntity.builder()
+                    .email("wilver.ar.dev.three@gmail.com")
+                    .username("wilverar3")
+                    .password(passwordEncoder.encode("password"))
+                    .isEnabled(true)
+                    .accountNoExpired(true)
+                    .accountNoLocked(true)
+                    .credentialNoExpired(true)
+                    .roles(Set.of(roleInvited))
+                    .build();
+
+            userRepository.saveAll(List.of(userWilverAR, userWilverAR2, userWilverAR3));
         };
     }
 }
